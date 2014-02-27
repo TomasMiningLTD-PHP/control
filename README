@@ -1,0 +1,86 @@
+Intention/Purpose
+-----------------
+
+The cgminer API frontend allows you to control several aspects of your minerfarm, after installing the frontend on a webserver that has access to your miner network.
+
+Supported (tested) Version
+--------------------------
+
+CGMiner 3.7.2
+API 1.32
+
+HOWTO
+-----
+
+Extract arcive into /var/www or whatever your DOCROOT is.
+
+Database: api.db into a directory which can't be reached from docroot or rename it to .htapi.db since Apache will refuse to give .ht files to browsers.
+
+Configure in application/config/database.php
+$db['default']['hostname'] = 'sqlite:./../api.db'; point to the directory where api.db hides
+
+For your webfrondend to contact the miner API, you have to have at least these settings in your cgminer.conf:
+
+"api-listen" : true,
+"api-mcast-port" : "4028",
+"api-network" : true,
+"api-port" : "4028",
+"api-allow" : "W:0/0",
+"api-description" : "<Change to unique miner description>" 
+
+!Warning! "api-allow" : "W:0/0" allows ANY host to access your miner!
+
+In order to have only a single IP (of your webserver that runs the frondend) accessing your miner API, just set it to that IP "W:192.168.1.1" 
+You also can have a network range allowing access using: "W:192.168.1.0/24"
+
+When you load your site and have no IP numbers set, an error might be displayed.
+
+Click on [MANAGE] and add one or more IPs to the textfield, one IP number per line
+Click send and the IP numbers should be written to the database
+Now click on [Back] and the miners should be contracted and hopefully send reply back to the frondend
+
+In the frondend you can now monitor the status of your miners. To manage your pools, expand the display by clicking on the headline. In the pools-table you now have the options to Disable, Switch, Enable or Remove pools.
+Above this table, you can add new pools by entering the details and click [+ add].
+(Note: you need to have writeaccess ("W:" to your miner for these actions to work)
+
+For each pool, you see four buttons. These allow you to
+
+- [Rem]ove
+- [Sw]itch
+- [En]able
+- [Dis]able
+
+your pools. Enabled pools will be switched automatically when a lower priority pool fails (goes down).
+
+When you click [save], the frontend tells the miner to save the actual running config under default filename (.cgminer/cgminer.conf) so your setting stay on rebooting the miner.
+
+Additional config (optional)
+----------------------------
+
+application/config/avConf.php holds additional variable fields, normally its not needed to edit them but you can:
+
+apicmds: Commands that are send/requested to/from API
+mintemp/maxtemp: Temperature interval for display; mintemp => green, maxtemp => red/warn
+viewfields: for the simplified view, these fields of the command-reply are displayed, other hidden
+abstractview: these fields of the command-reply are displayed in the abstract, the collapsed headline
+dbFields, dbMap: for statistic database (not yet used)
+
+Protecting your frontend
+------------------------
+
+As of now, the frondend has no login, so if you need a login, please stick with Basic-Auth (.htaccess) for now.
+
+Further addition/TODO
+---------------------
+
+backend cron
+javascript/ajax
+statistics
+config backup
+multicast?
+
+Authors & Contact
+-----------------
+ManiaC0in & labX
+
+Reach us by labXcrypto@gmail.com
