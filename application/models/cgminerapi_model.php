@@ -45,7 +45,7 @@ class cgminerApi_model extends CI_Model
     
     private function request($ip, $cmd)
     {
-        $socket = $this->getsock($ip, 4028);
+        $socket = $this->getsock($ip, $this->config->item('apiport'));
         
         if ($socket != null)
         {

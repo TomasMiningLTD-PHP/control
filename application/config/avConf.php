@@ -1,5 +1,11 @@
 <?php
 /*
+* cgminer's API port
+*/
+
+$config['apiport'] = 4028;
+
+/*
  * Commands to ask from miners
 */
 $config['apicmds'] = array

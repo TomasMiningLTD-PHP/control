@@ -17,7 +17,7 @@ Extract arcive into /var/www or whatever your DOCROOT is.
 Database: api.db into a directory which can't be reached from docroot or rename it to .htapi.db since Apache will refuse to give .ht files to browsers.
 
 Configure in application/config/database.php
-$db['default']['hostname'] = 'sqlite:./../api.db'; point to the directory where api.db hides
+$db['default']['hostname'] = 'sqlite:./../.htapi.db'; point to the directory where .htapi.db hides
 
 For your webfrondend to contact the miner API, you have to have at least these settings in your cgminer.conf:
 
@@ -78,9 +78,3 @@ javascript/ajax
 statistics
 config backup
 multicast?
-
-Authors & Contact
------------------
-ManiaC0in & labX
-
-Reach us by labXcrypto@gmail.com
