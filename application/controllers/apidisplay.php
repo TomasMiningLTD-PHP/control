@@ -14,18 +14,20 @@ class Apidisplay extends CI_Controller
         
         $this->load->model('cgminerDb_model');
 
-        $this->ips = $this->cgminerDb_model->getIps();//config_item('ips');
+        $this->ips = $this->cgminerDb_model->getIps();
 
         $this->cmds = config_item('apicmds');
+
+        $this->data['title'] = 'Cgminer API View';
 
 	}
     
     public function index()
     {
         $apidata = array();
-        $data['errors'] = '';
-        $data['notices'] = '';
-        $data['ip'] = '';
+        $this->data['errors'] = '';
+        $this->data['notices'] = '';
+        $this->data['ip'] = '';
         $dead = array();
 
         $inputip = $this->input->post('ip');
@@ -50,7 +52,7 @@ class Apidisplay extends CI_Controller
             else if($this->input->post('save') !== false)
                 $result[] = $this->cgminerApi_model->saveConfig($ip);
 
-            $data['notices'] = $result;
+            $this->data['notices'] = $result;
         }
     
         foreach($this->ips as $ip)
@@ -65,17 +67,15 @@ class Apidisplay extends CI_Controller
                 }
                 catch(Exception $e)
                 {
-                    $data['errors'][] = $e->getMessage();
+                    $this->data['errors'][] = $e->getMessage();
                     $dead[] = $ip;
                     continue;
                 }
                 
-                $data['apidata'][$ip] = $apidata;
+                $this->data['apidata'][$ip] = $apidata;
             }
         }
-        
-        $data['title'] = 'Cgminer API View';
-        $this->load->view('apiview', $data);
+        $this->load->view('apiview', $this->data);
     }
 
     public function manage()
@@ -87,12 +87,15 @@ class Apidisplay extends CI_Controller
         if(!empty($manageip))
         {
             $ips = explode("\n", trim($this->input->post('ips')));
+            
             $db->setIps($ips);
+
+            $this->data['notices'] = 'Your IPs have been updated!';
         }
         
-        $data['ips'] = $db->getIps();
+        $this->data['ips'] = $db->getIps();
         
-        $this->load->view('managerview', $data);
+        $this->load->view('managerview', $this->data);
     }
 
     public function complex()

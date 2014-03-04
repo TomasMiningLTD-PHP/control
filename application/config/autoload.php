@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'table');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('apiview_helper', 'form_helper');
+$autoload['helper'] = array('apiview_helper', 'form_helper', 'url_helper', 'html');
 
 
 /*

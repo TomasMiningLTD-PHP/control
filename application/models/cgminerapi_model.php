@@ -45,7 +45,17 @@ class cgminerApi_model extends CI_Model
     
     private function request($ip, $cmd)
     {
-        $socket = $this->getsock($ip, $this->config->item('apiport'));
+        if(strpos($ip, ':')) //do we have IP:Port?
+        {
+            $connect = explode(':', $ip);
+        }
+        else //if not, use default port
+        {
+            $connect[0] = $ip;
+            $connect[1] = $this->config->item('apiport');
+        }
+        
+        $socket = $this->getsock($connect);
         
         if ($socket != null)
         {
@@ -106,8 +116,11 @@ class cgminerApi_model extends CI_Model
         return null;
     }
 
-    private function getsock($addr, $port)
+    private function getsock($connect)
     {
+        $addr = $connect[0];
+        $port = $connect[1];
+        
         $socket = null;
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         if ($socket === false || $socket === null)

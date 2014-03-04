@@ -1,6 +1,7 @@
 <?php
 /*
-* cgminer's API port
+* default Port to cgminer's API
+* Will be used, if there is no port given for an IP
 */
 
 $config['apiport'] = 4028;
