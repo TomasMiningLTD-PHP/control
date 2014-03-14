@@ -4,7 +4,7 @@
             font-size: 0.9em;
             background-color: #000;
             color: #fff;
-            margin-top: 140px;
+            margin-top: 125px;
             margin-left: 10px;
         }
         div#contents
@@ -18,8 +18,10 @@
         }
         div.nodedisplay
         {
+            padding-top: 0px;
+            margin-top: 4px;
             display: block;
-            height: 0px;
+            max-height: 0px;
             clear: both;
             overflow: hidden;
         }
@@ -129,7 +131,6 @@
         {
             float: left;
             display: inline;
-            margin: 1px;
         }
         input
         {
@@ -186,15 +187,14 @@
         }
         select[multiple]
         {
-            height: 18px;
+            height: 20px;
             display: inline;
             position: relative;
-            
         }
         select[multiple]:hover
         {
-            height: auto;
-            vertical-align:top;
+            height: 200px;
+            margin-top: 2px;
         }
         input[type=number]
         {
@@ -210,9 +210,6 @@
             display: block;
             clear: both;
             overflow: visible;
-            background-color: black;
-            padding-top: 2px;
-            margin-top: 4px;
         }
         button
         {
@@ -229,7 +226,6 @@
             border-bottom: 0px;
             clear: both;
             margin: 2px;
-            
         }
         table.abstr
         {

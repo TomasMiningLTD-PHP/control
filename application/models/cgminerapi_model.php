@@ -65,7 +65,7 @@ class cgminerApi_model extends CI_Model
 
             if (strlen($line) == 0)
             {
-                throw new Exception("$ip connected but '$cmd' returned nothing.");
+                throw new Exception("$ip connected but '$cmd' returned nothing (access denied?)");
             }
 
             if (substr($line,0,1) == '{')
@@ -126,16 +126,18 @@ class cgminerApi_model extends CI_Model
         if ($socket === false || $socket === null)
         {
             $error = socket_strerror(socket_last_error());
-            $msg = "socket create(TCP) failed";
+            throw new Exception("socket create(TCP) failed");
             return null;
         }
 
-        $res = socket_connect($socket, $addr, $port);
+        socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, array("sec"=>5,"usec"=>0));
+
+        $res = @socket_connect($socket, $addr, $port);
         if ($res === false)
         {
             $error = socket_strerror(socket_last_error());
             socket_close($socket);
-            throw new Exception("socket connect($addr,$port) failed - '$error'\n");
+            throw new Exception("socket connect($addr,$port) timeout - '$error'\n");
         }
         return $socket;
     }

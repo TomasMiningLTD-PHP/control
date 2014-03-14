@@ -115,9 +115,8 @@ function genApiTable($data, $ip)
     return $table;
 }
 
-function getAbstract($data, $ip)
+function getAbstract($data, $ip, $views)
 {
-    $views = config_item('abstractView');
     $abstrmap = config_item('abstrmap');
     
     $table = '<table class="abstr"><tr>';

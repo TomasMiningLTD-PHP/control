@@ -1,3 +1,9 @@
+Changes 2014-03-14
+..................
+
+- Added miner overview config
+- Added bulk pool add
+
 Intention/Purpose
 -----------------
 
@@ -54,21 +60,56 @@ your pools. Enabled pools will be switched automatically when a lower priority p
 
 When you click [save], the frontend tells the miner to save the actual running config under default filename (.cgminer/cgminer.conf) so your setting stay on rebooting the miner.
 
-Additional config (optional)
+Changing the miners's overview
 ----------------------------
 
-application/config/avConf.php holds additional variable fields, normally its not needed to edit them but you can:
+To change the miners's overview, go to [CONFIG] and you will meet a table with all fields currently shown.
+To add fields, select one or more from the multiple-choices-form below the table
+Hold ctrl while clicking to select/unselect multiple options.
 
-apicmds: Commands that are send/requested to/from API
-mintemp/maxtemp: Temperature interval for display; mintemp => green, maxtemp => red/warn
-viewfields: for the simplified view, these fields of the command-reply are displayed, other hidden
-abstractview: these fields of the command-reply are displayed in the abstract, the collapsed headline
-dbFields, dbMap: for statistic database (not yet used)
+Press [send] to write your changes to the config and click [^Back] to go back to your miner's overview.
+
+Bulk adding pools
+-----------------
+
+You are now able to add one pools to all your miners at once. However this requires your workers to be set up in a certain format:
+
+Enter the username.worker followed by a # what will cause the script to count from 1 to the number of your miners.
+Therefore workers at that pool must have all the same name, just followed a number starting at 1
+
+Enter into the field:
+user.worker#
+
+Produces per miner:
+user.worker1
+user.worker2
+user.workerN
+
+All must have the same password
+
+P2Pools:
+--------
+
+When using p2pools, that require you to enter your payout address, just enter the address WITHOUT # your miners will then use all the same username, not adherencing a number.
+
+!IMPORTANT! when you click [save] at the bulk-add formular, the configs of all miners will be saved!
+
+Unfortunately as of now, you still have to enable/switch all added pools manually, but at least the new feature spares you to enter the same url/user/password multiple times.
 
 Protecting your frontend
 ------------------------
 
 As of now, the frondend has no login, so if you need a login, please stick with Basic-Auth (.htaccess) for now.
+
+Known issues
+------------
+
+Overview messing up:
+Sometimes it happens, that cgminer will report all pools as active, what causes the overview table to mess up showing all configured pools.
+This is something, cgminer-API sends and not caused by our tool. As of now we don't know a solution for that yet but to hide all extra pools that are reported as active. We however decided not to hide what the API tells us.
+
+Display collapsing when more than one miner view is expanded:
+We will implement the display with javascript/ajax soon, what allows us to auto-refresh and keep expanded displays open
 
 Further addition/TODO
 ---------------------

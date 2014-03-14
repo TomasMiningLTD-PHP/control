@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'sqlite:./.htapi.db';
+$db['default']['hostname'] = 'sqlite:./db/.htapi.db';
 $db['default']['username'] = '';
 $db['default']['password'] = '';
 $db['default']['database'] = '';

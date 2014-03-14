@@ -25,7 +25,7 @@ $config['maxtemp'] = 90; //The "red temperature" - miners shouldn't get there
  * Fields to show in simple view
  * api command => array('results to display')
 */
-$config['viewfields'] = $views = array 
+$config['viewfields'] = array 
 (                                    
     'version' => array
     (
@@ -78,7 +78,6 @@ $config['viewfields'] = $views = array
         'Total MH',
         'Device Rejected%',
         'Pool Rejected%'
-        
     )
 );
 
@@ -156,5 +155,16 @@ $config['dbmap'] = array
     'mhs 5s' => 'mh5s',
     'hardware errors' => 'hwerrors',
     'total mh' => 'totalmh'
+);
+/*
+ * Tables to create in db
+ *
+*/
+$config['tables'] = array
+(
+    'ipscfg',
+    'fields',
+    'commands',
+    'abstractview'
 );
 ?>
